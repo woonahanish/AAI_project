@@ -56,6 +56,7 @@ public:
 
     int clause_to_rule(int ci) {
         int ri = ((ci/4)+1)*10;
+        clauseVariablePointer[ri] = ci;
         return ri;
     }
 
