@@ -16,7 +16,7 @@ public:
     map<string,bool> variableList;
     map<int,int> clauseVariablePointer;
 
-    FWChaining() {
+    FWChaining(string clause) {
 
         knowledgeBase[10] = "IF BasicAttack=true THEN Prevention 1";
         knowledgeBase[20] = "IF IdentityAttack=true THEN Prevention 2";
@@ -39,6 +39,11 @@ public:
         clauseVariableList[14] = "";
         clauseVariableList[15] = "";
         clauseVariableList[16] = "";
+
+        int ci = process(clause);
+        int ri = clause_to_rule(ci);
+        update_VL(ci);
+        validate_Ri(ri);
 
     }
 
@@ -74,14 +79,14 @@ public:
         }
     }
 
-    void process(string clause) {
+    int process(string clause) {
 
         variableList["BasicAttack"] = false;
         variableList["IdentityAttack"] = false;
         variableList["DenialOfService"] = false;
         variableList["MaliciousCode"] = false;
 
-        search_cvl(clause);
+        return search_cvl(clause);
 
     }
 
