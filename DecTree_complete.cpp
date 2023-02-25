@@ -675,10 +675,12 @@ public:
 
     void prevention() {
         string clause = conclusionVariableQueue.peek();
+        cout<<"Prevention: ";
         if(clause == "BasicAttack") cout<<"Prevention1";
         else if(clause == "IdentityAttack") cout<<"Prevention2";
         else if(clause == "DenialOfService") cout<<"Prevention3";
         else if(clause == "MaliciousCode") cout<<"Prevention4";
+        cout<<endl;
     }
 
     void debug() {
