@@ -1,4 +1,7 @@
 #include<iostream>
+#include<map>
+#include<string>
+#include <iterator>
 using namespace std;
 
 bool variable_response[5];
@@ -521,17 +524,207 @@ int Prevention_FW(){
 }
 
 */
+
+class QueueNode {
+public:
+    string data;
+    QueueNode* nextNode;
+};
+
+class Queue {
+public:
+    QueueNode* headNode;
+
+    Queue() {
+        headNode = NULL;
+    }
+
+    void push(string data) {
+        QueueNode* temp = headNode;
+        QueueNode tempNode;
+        tempNode.data = data;
+        tempNode.nextNode = temp;
+        headNode = &tempNode;
+    }
+
+    string peek() {
+        return headNode->data;
+    }
+};
+
+class Pointer{
+public:
+    int ri;
+    int ci;
+};
+
+class FWChaining {
+public:
+    map<int,string> clauseVariableList;
+    map<int,string> knowledgeBase;
+    Queue conclusionVariableQueue;
+    map<string,bool> variableList;
+    Pointer clauseVariablePointer;
+
+    FWChaining() {
+
+        string clause;
+
+        cout<<"Chose the type of Attack: "<<endl;
+        cout<<"Press 1 for BasicAttack"<<endl;
+        cout<<"Press 2 for IdentityAttack"<<endl;
+        cout<<"Press 3 for DenialOfService"<<endl;
+        cout<<"Press 4 for MaliciousCode"<<endl;
+
+        int i;
+        cin>>i;
+
+        switch (i) {
+            case 1:
+                clause = "BasicAttack";
+                break;
+            case 2:
+                clause = "IdentityAttack";
+                break;
+            case 3:
+                clause = "DenialOfService";
+                break;
+            case 4:
+                clause = "MaliciousCode";
+                break;
+            default:
+                cout<<"You entered the wrong Input";
+                break;
+        }
+
+
+        knowledgeBase[10] = "IF BasicAttack=true THEN Prevention 1";
+        knowledgeBase[20] = "IF IdentityAttack=true THEN Prevention 2";
+        knowledgeBase[30] = "IF DenialOfService=true THEN Prevention 3";
+        knowledgeBase[40] = "IF MaliciousCode=true THEN Prevention 4";
+
+        clauseVariableList[1] = "BasicAttack";
+        clauseVariableList[2] = "";
+        clauseVariableList[3] = "";
+        clauseVariableList[4] = "";
+        clauseVariableList[5] = "IdentityAttack";
+        clauseVariableList[6] = "";
+        clauseVariableList[7] = "";
+        clauseVariableList[8] = "";
+        clauseVariableList[9] = "DenialOfService";
+        clauseVariableList[10] = "";
+        clauseVariableList[11] = "";
+        clauseVariableList[12] = "";
+        clauseVariableList[13] = "MaliciousCode";
+        clauseVariableList[14] = "";
+        clauseVariableList[15] = "";
+        clauseVariableList[16] = "";
+
+        int ci = process(clause);
+        int ri = clause_to_rule(ci);
+        update_VL(ci);
+        validate_Ri(ri);
+        prevention();
+        debug();
+
+    }
+
+    int search_cvl(string clause) {
+        int ci;
+        for(int i=1; i<=16; i++){
+            if(clauseVariableList[i]==clause) {
+                ci = i;
+                break;
+            }
+            else ci = 0;
+        }
+        return ci;
+    }
+
+    int clause_to_rule(int ci) {
+        int ri = ((ci/4)+1)*10;
+        clauseVariablePointer.ci = ci;
+        clauseVariablePointer.ri = ri;
+        return ri;
+    }
+
+    void update_VL(int ci) {
+        variableList[clauseVariableList[ci]] = true;
+    }
+
+    void validate_Ri(int ri) {
+        for(int i=1; i<=16; i+4){
+            string clause = clauseVariableList[i];
+            if(knowledgeBase[ri].find(clause)!=0) {
+                conclusionVariableQueue.push(clause);
+                break;
+            }
+        }
+    }
+
+    int process(string clause) {
+
+        variableList["BasicAttack"] = false;
+        variableList["IdentityAttack"] = false;
+        variableList["DenialOfService"] = false;
+        variableList["MaliciousCode"] = false;
+
+        return search_cvl(clause);
+
+    }
+
+    void prevention() {
+        string clause = conclusionVariableQueue.peek();
+        if(clause == "BasicAttack") cout<<"Prevention1";
+        else if(clause == "IdentityAttack") cout<<"Prevention2";
+        else if(clause == "DenialOfService") cout<<"Prevention3";
+        else if(clause == "MaliciousCode") cout<<"Prevention4";
+    }
+
+    void debug() {
+
+        cout<<"\nRules list\n";
+        cout<<"\n----------------------------------------------------\n";
+        for (int i=10; i<=40; i=i+10) {
+            cout<<"'"<<i<<"'"<<" "<<knowledgeBase[i]<<endl;
+        }
+
+        cout<<"\nClause Variable list\n";
+        cout<<"\n----------------------------------------------------\n";
+        for(int i=1; i<=16; i++) {
+            cout<<"'"<<i<<"'"<<" "<<clauseVariableList[i]<<endl;
+        }
+
+        cout<<"\nClause Variable Pointer\n";
+        cout<<"\n----------------------------------------------------\n";
+        cout<<"Rule #     Clause#"<<endl;
+        cout<<clauseVariablePointer.ri<<"          "<<clauseVariablePointer.ci<<endl;
+
+        cout<<"\nVariable list\n";
+        cout<<"\n----------------------------------------------------\n";
+        cout<<"Variable         Value"<<endl;
+        cout<<"BasicAttack      "<<variableList["BasicAttack"]<<endl;
+        cout<<"IdentityAttack   "<<variableList["IdentityAttack"]<<endl;
+        cout<<"DenialOfService  "<<variableList["DenialOfService"]<<endl;
+        cout<<"MaliciousCode    "<<variableList["MaliciousCode"]<<endl;
+
+        cout<<"\nConclusion Variable queue\n";
+        cout<<"\n----------------------------------------------------\n";
+        cout<<conclusionVariableQueue.peek();
+
+    }
+
+};
+
 int main(){
     int n;
     cout<<"Press 1 to Explore Attacks\nPress 2 to Explore Prevention\n";
     cin>>n;   
     
     if(n == 1)
-        Identify_the_attack();  
-    //else prevention();
+        Identify_the_attack();
+    else
+        FWChaining fwChaining;
 
-/*    Attacks_BW();
-    Prevention_FW();
-
-*/   
+    return 0;
 }
