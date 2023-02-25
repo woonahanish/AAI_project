@@ -570,7 +570,7 @@ public:
 
         string clause;
 
-        cout<<"Chose the type of Attack: "<<endl;
+        cout<<"Choose the type of Attack: "<<endl;
         cout<<"Press 1 for BasicAttack"<<endl;
         cout<<"Press 2 for IdentityAttack"<<endl;
         cout<<"Press 3 for DenialOfService"<<endl;
@@ -686,24 +686,24 @@ public:
     void debug() {
 
         cout<<"\nRules list\n";
-        cout<<"\n----------------------------------------------------\n";
+        cout<<"----------------------------------------------------\n";
         for (int i=10; i<=40; i=i+10) {
             cout<<"'"<<i<<"'"<<" "<<knowledgeBase[i]<<endl;
         }
 
         cout<<"\nClause Variable list\n";
-        cout<<"\n----------------------------------------------------\n";
+        cout<<"----------------------------------------------------\n";
         for(int i=1; i<=16; i++) {
             cout<<"'"<<i<<"'"<<" "<<clauseVariableList[i]<<endl;
         }
 
         cout<<"\nClause Variable Pointer\n";
-        cout<<"\n----------------------------------------------------\n";
+        cout<<"----------------------------------------------------\n";
         cout<<"Rule #     Clause#"<<endl;
-        cout<<clauseVariablePointer.ri<<"          "<<clauseVariablePointer.ci<<endl;
+        cout<<clauseVariablePointer.ri<<"         "<<clauseVariablePointer.ci<<endl;
 
         cout<<"\nVariable list\n";
-        cout<<"\n----------------------------------------------------\n";
+        cout<<"----------------------------------------------------\n";
         cout<<"Variable         Value"<<endl;
         cout<<"BasicAttack      "<<variableList["BasicAttack"]<<endl;
         cout<<"IdentityAttack   "<<variableList["IdentityAttack"]<<endl;
@@ -711,8 +711,13 @@ public:
         cout<<"MaliciousCode    "<<variableList["MaliciousCode"]<<endl;
 
         cout<<"\nConclusion Variable queue\n";
-        cout<<"\n----------------------------------------------------\n";
-        cout<<conclusionVariableQueue.peek();
+        cout<<"----------------------------------------------------\n";
+        if(variableList["BasicAttack"]) cout<<"BasicAttack";
+        else if(variableList["IdentityAttack"]) cout<<"IdentityAttack";
+        else if(variableList["DenialOfService"]) cout<<"DenialOfService";
+        else if(variableList["MaliciousCode"]) cout<<"MaliciousCode";
+
+        cout<<"\n";
 
     }
 
