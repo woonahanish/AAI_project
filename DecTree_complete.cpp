@@ -575,6 +575,9 @@ public:
         cout<<"Press 2 for IdentityAttack"<<endl;
         cout<<"Press 3 for DenialOfService"<<endl;
         cout<<"Press 4 for MaliciousCode"<<endl;
+        cout<<"Press 5 for PasswordAttack"<<endl;
+        cout<<"Press 6 for PhishingAttack"<<endl;
+        cout<<"Press 7 for ManInTheMiddle"<<endl;
 
         int i;
         cin>>i;
@@ -592,6 +595,15 @@ public:
             case 4:
                 clause = "MaliciousCode";
                 break;
+            case 5:
+                clause = "PasswordAttack";
+                break;
+            case 6:
+                clause = "PhishingAttack";
+                break;
+            case 7:
+                clause = "ManInTheMiddle";
+                break;
             default:
                 cout<<"You entered the wrong Input";
                 break;
@@ -602,6 +614,9 @@ public:
         knowledgeBase[20] = "IF IdentityAttack=true THEN Use a VPN.";
         knowledgeBase[30] = "IF DenialOfService=true THEN Have multilevel authentication for users.";
         knowledgeBase[40] = "IF MaliciousCode=true THEN Don't download any files from unknown source.";
+        knowledgeBase[50] = "IF PasswordAttack=true THEN Use stronger password.";
+        knowledgeBase[60] = "IF PhishingAttack=true THEN Implement email filter from unknown source.";
+        knowledgeBase[70] = "IF ManInTheMiddle=true THEN Use encryption.";
 
         clauseVariableList[1] = "BasicAttack";
         clauseVariableList[2] = "";
@@ -619,6 +634,18 @@ public:
         clauseVariableList[14] = "";
         clauseVariableList[15] = "";
         clauseVariableList[16] = "";
+        clauseVariableList[17] = "PasswordAttack";
+        clauseVariableList[18] = "";
+        clauseVariableList[19] = "";
+        clauseVariableList[20] = "";
+        clauseVariableList[21] = "PhishingAttack";
+        clauseVariableList[22] = "";
+        clauseVariableList[23] = "";
+        clauseVariableList[24] = "";
+        clauseVariableList[21] = "ManInTheMiddle";
+        clauseVariableList[22] = "";
+        clauseVariableList[23] = "";
+        clauseVariableList[24] = "";
 
         int ci = process(clause);
         int ri = clause_to_rule(ci);
@@ -631,7 +658,7 @@ public:
 
     int search_cvl(string clause) {
         int ci;
-        for(int i=1; i<=16; i++){
+        for(int i=1; i<=28; i++){
             if(clauseVariableList[i]==clause) {
                 ci = i;
                 break;
@@ -653,7 +680,7 @@ public:
     }
 
     void validate_Ri(int ri) {
-        for(int i=1; i<=16; i+4){
+        for(int i=1; i<=28; i+4){
             string clause = clauseVariableList[i];
             if(knowledgeBase[ri].find(clause)!=0) {
                 conclusionVariableQueue.push(clause);
@@ -668,6 +695,9 @@ public:
         variableList["IdentityAttack"] = false;
         variableList["DenialOfService"] = false;
         variableList["MaliciousCode"] = false;
+        variableList["PasswordAttack"] = false;
+        variableList["PhishingAttack"] = false;
+        variableList["ManInTheMiddle"] = false;
 
         return search_cvl(clause);
 
@@ -680,6 +710,9 @@ public:
         else if(clause == "IdentityAttack") cout<<"Use a VPN.";
         else if(clause == "DenialOfService") cout<<"Have multilevel authentication for users.";
         else if(clause == "MaliciousCode") cout<<"Don't download any files from unknown source.";
+        else if(clause == "PasswordAttack") cout<<"Use stronger password.";
+        else if(clause == "PhishingAttack") cout<<"Implement email filter from unknown source.";
+        else if(clause == "ManInTheMiddle") cout<<"Use encryption.";
         cout<<endl;
     }
 
@@ -687,13 +720,13 @@ public:
 
         cout<<"\nRules list\n";
         cout<<"----------------------------------------------------\n";
-        for (int i=10; i<=40; i=i+10) {
+        for (int i=10; i<=70; i=i+10) {
             cout<<"'"<<i<<"'"<<" "<<knowledgeBase[i]<<endl;
         }
 
         cout<<"\nClause Variable list\n";
         cout<<"----------------------------------------------------\n";
-        for(int i=1; i<=16; i++) {
+        for(int i=1; i<=28; i++) {
             cout<<"'"<<i<<"'"<<" "<<clauseVariableList[i]<<endl;
         }
 
@@ -709,6 +742,9 @@ public:
         cout<<"IdentityAttack   "<<variableList["IdentityAttack"]<<endl;
         cout<<"DenialOfService  "<<variableList["DenialOfService"]<<endl;
         cout<<"MaliciousCode    "<<variableList["MaliciousCode"]<<endl;
+        cout<<"PasswordAttack   "<<variableList["PasswordAttack"]<<endl;
+        cout<<"PhishingAttack   "<<variableList["PhishingAttack"]<<endl;
+        cout<<"ManInTheMiddle   "<<variableList["ManInTheMiddle"]<<endl;
 
         cout<<"\nConclusion Variable queue\n";
         cout<<"----------------------------------------------------\n";
@@ -716,6 +752,9 @@ public:
         else if(variableList["IdentityAttack"]) cout<<"IdentityAttack";
         else if(variableList["DenialOfService"]) cout<<"DenialOfService";
         else if(variableList["MaliciousCode"]) cout<<"MaliciousCode";
+        else if(variableList["PasswordAttack"]) cout<<"PasswordAttack";
+        else if(variableList["PhishingAttack"]) cout<<"PhishingAttack";
+        else if(variableList["ManInTheMiddle"]) cout<<"ManInTheMiddle";
 
         cout<<"\n";
 
