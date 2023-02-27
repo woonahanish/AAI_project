@@ -76,6 +76,19 @@ public:
     Node* head_ret(){
         return head;
     }
+
+    Node* searchVariable(Node* h, int rule){
+        int var_in = 1;
+        Node* var_fin_temp = h;
+        Node* ret_node = NULL;
+        while(var_fin_temp->next != NULL){
+            if(rule == var_fin_temp->rule_number)
+                ret_node = var_fin_temp;
+            var_fin_temp = var_fin_temp->next;
+        }
+        return ret_node;
+    }
+
     int rule_num_ret(int position){
         Node* temp = head;
         int count=1;
@@ -429,6 +442,10 @@ void search_con(Node* h, string variable, Node_Clause_var_List *head_clause, Nod
 }
 
 void Identify_the_attack(){
+    cout<<"\n\n1.  ATTACK\n2.  ATTACK_N\n3.  ATTACK_ACTIVE\n4.  ATTACK_ACTIVE_N\n5.  ATTACK_TYPE\n6.  ATTACK_TYPE_M\n7.  ATTACK_TYPE_D\n8.  ATTACK_TYPE_Mal\n9.  ATTACK_TYPE_Den\n10. ATTACK_TYPE_ID\n11. ATTACK_TYPE_DenH\n12. ATTACK_TYPE_IDH\n13. ATTACK_TYPE_DenHN\n14. ATTACK_TYPE_IDH\n15. ATTACK_TYPE_IDHN\n16. ATTACK_TYPE_P\n17. ATTACK_TYPE_M\n18. ATTACK_TYPE_ACTIVE\n19. ATTACK_TYPE_ID_P\n20. ATTACK_TYPE_MAL_Y\n";
+    int inp_fin;
+    cout<<"Choose one variable: ";
+    cin>>inp_fin;
 
     int var_response_n=0, var_response_y=1;
     cout<<"\nHAVING PROBLEMS? Press 1.\nNO PROBLEM? Press 0\n";
@@ -439,9 +456,9 @@ void Identify_the_attack(){
     LinkedList l;
 
     l.define_conclusionList(1, "ATTACK", "PROBLEM", "", "", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(2, "ATTACK", "PROBLEM", "", "", var_response_n, var_response_n, var_response_n);
+    l.define_conclusionList(2, "ATTACK_N", "PROBLEM", "", "", var_response_n, var_response_n, var_response_n);
     l.define_conclusionList(3, "ATTACK_ACTIVE", "SLOW", "ATTACK", "", var_response_y, var_response_y, var_response_n);
-    l.define_conclusionList(4, "ATTACK_ACTIVE", "SLOW", "ATTACK", "", var_response_y, var_response_n, var_response_n);
+    l.define_conclusionList(4, "ATTACK_ACTIVE_N", "SLOW", "ATTACK", "", var_response_y, var_response_n, var_response_n);
     
     l.define_conclusionList(5, "ATTACK_TYPE", "ATTACK", "ATTACK_ACTIVE", "", var_response_y, var_response_y, var_response_n);
     l.define_conclusionList(6, "ATTACK_TYPE_M", "ATTACK_TYPE", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
@@ -451,9 +468,9 @@ void Identify_the_attack(){
     l.define_conclusionList(10, "ATTACK_TYPE_ID", "UNKNOWN FILE", "UNAUTHORIZED ACTIVITY", "UNSENT EMAILS", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(11, "ATTACK_TYPE_DenH", "ATTACK_ACTIVE", "FLOODING REQUEST", "CRASHED SYSTEM", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(12, "ATTACK_TYPE_IDH", "ATTACK_ACTIVE", "UNNECESSARY RUNNING PROCESSOR", "PASSWARD COMPROMISED",var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(13, "ATTACK_TYPE_DenHN", "ATTACK_ACTIVE", "FLOODING REQUEST", "CRASHED SYSTEM", var_response_y, var_response_y, var_response_n);
+    l.define_conclusionList(13, "ATTACK_TYPE_DenHN", "ATTACK_ACTIVE", "FLOODING REQUEST", "CRASHED SYSTEM", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(14, "ATTACK_TYPE_IDH", "ATTACK_ACTIVE", "PASSWARD COMPROMISED", "UNKNOWN FILE", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(15, "ATTACK_TYPE_IDHN", "ATTACK_ACTIVE", "PASSWARD COMPROMISED", "UNKNOWN FILE", var_response_y, var_response_y, var_response_n);
+    l.define_conclusionList(15, "ATTACK_TYPE_IDHN", "ATTACK_ACTIVE", "PASSWARD COMPROMISED", "UNKNOWN FILE", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(16, "ATTACK_TYPE_P", "PROBLEM", "SLOW", "NO RESPONSE", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(17, "ATTACK_TYPE_M", "ATTACK", "SLOW", "LOST FILES", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(18, "ATTACK_TYPE_ACTIVE", "ATTACK", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_n);
@@ -475,9 +492,6 @@ void Identify_the_attack(){
     l_v.variable_name("ATTACK_TYPE", -1);
     l_v.variable_name("UNAUTHORIZED ACTIVITY", -1);
     l_v.variable_name("UNKWOWN EMAILS", -1);
-
-
-
 
     cout<<"\nVariable List";
     cout<<"\n----------------------------------------------------\n";
@@ -502,7 +516,11 @@ void Identify_the_attack(){
     l_c_var.print_clause_var_list();
     Node_Clause_var_List *head_clause = l_c_var.ret_head();
 
-    search_con(head, "ATTACK_TYPE_ID", head_clause, head_ins);
+    string s_var;
+    Node* temp_var_fin = l.searchVariable(head, inp_fin*10);
+    if(temp_var_fin != NULL)
+        s_var = temp_var_fin->data;
+    search_con(head,  s_var, head_clause, head_ins);
 }
 
 class QueueNode {
