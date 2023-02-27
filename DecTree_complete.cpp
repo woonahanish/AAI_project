@@ -723,15 +723,23 @@ public:
 
 };
 
+void Attacks_BW() {
+    Identify_the_attack();
+}
+
+void Prevention_FW() {
+    FWChaining fwChaining;
+}
+
 int main(){
     int n;
     cout<<"Press 1 to Explore Attacks\nPress 2 to Explore Prevention\n";
     cin>>n;   
     
     if(n == 1)
-        Identify_the_attack();
+        Attacks_BW();
     else
-        FWChaining fwChaining;
+        Prevention_FW();
 
     return 0;
 }
