@@ -1,6 +1,8 @@
 # CS5346_P1
 Computer expert system to identify the type of the network attacks and possible preventions.
 
+To Run the program use a suitable c++ compiler to convert DecTree_complete.cpp into a execuitable file, then run the .exe file.
+
 Rules - Backward
 
 10 if PROBLEM = NO
