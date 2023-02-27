@@ -89,4 +89,5 @@ Rules - Forward
 '40' IF MaliciousCode=true THEN Don't download any files from unknown source. 
 
 
+![Flowchart](https://user-images.githubusercontent.com/48315412/221646321-55f41885-0f66-4418-bd88-5103e48a38c8.png)
 
