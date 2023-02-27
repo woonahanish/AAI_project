@@ -598,10 +598,10 @@ public:
         }
 
 
-        knowledgeBase[10] = "IF BasicAttack=true THEN Prevention 1";
-        knowledgeBase[20] = "IF IdentityAttack=true THEN Prevention 2";
-        knowledgeBase[30] = "IF DenialOfService=true THEN Prevention 3";
-        knowledgeBase[40] = "IF MaliciousCode=true THEN Prevention 4";
+        knowledgeBase[10] = "IF BasicAttack=true THEN Install antivirus software.";
+        knowledgeBase[20] = "IF IdentityAttack=true THEN Use a VPN.";
+        knowledgeBase[30] = "IF DenialOfService=true THEN Have multilevel authentication for users.";
+        knowledgeBase[40] = "IF MaliciousCode=true THEN Don't download any files from unknown source.";
 
         clauseVariableList[1] = "BasicAttack";
         clauseVariableList[2] = "";
@@ -676,10 +676,10 @@ public:
     void prevention() {
         string clause = conclusionVariableQueue.peek();
         cout<<"Prevention: ";
-        if(clause == "BasicAttack") cout<<"Prevention1";
-        else if(clause == "IdentityAttack") cout<<"Prevention2";
-        else if(clause == "DenialOfService") cout<<"Prevention3";
-        else if(clause == "MaliciousCode") cout<<"Prevention4";
+        if(clause == "BasicAttack") cout<<"Install antivirus software.";
+        else if(clause == "IdentityAttack") cout<<"Use a VPN.";
+        else if(clause == "DenialOfService") cout<<"Have multilevel authentication for users.";
+        else if(clause == "MaliciousCode") cout<<"Don't download any files from unknown source.";
         cout<<endl;
     }
 
