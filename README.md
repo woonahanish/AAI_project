@@ -87,7 +87,11 @@ Rules - Forward
 '20' IF IdentityAttack=true THEN Use a VPN.
 '30' IF DenialOfService=true THEN Have multilevel authentication for users.
 '40' IF MaliciousCode=true THEN Don't download any files from unknown source. 
+'50' IF PasswordAttack=true THEN Use stronger password.
+'60' IF PhishingAttack=true THEN Implement email filter from unknown source.
+'70' IF ManInTheMiddle=true THEN Use encryption.
 
 
-![Flowchart](https://user-images.githubusercontent.com/48315412/221646321-55f41885-0f66-4418-bd88-5103e48a38c8.png)
+![Flowchart-2](https://user-images.githubusercontent.com/48315412/221670612-1c2b00f5-c06a-4f4a-aca6-c67507c88f6f.png)
+
 
