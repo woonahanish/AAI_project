@@ -175,7 +175,6 @@ public:
 
         Node_Var* temp = head;
         if(temp == NULL){
-            //cout<<"FOUND NULL\n";
             head = newNode;
             return head->name;
         }
@@ -200,51 +199,51 @@ public:
         }
     }
 
-    int check_Ins_2(string cla_2, Node_Var *head_ins){//ATTACK
+    int check_Ins_2(string cla_2, Node_Var *head_ins){
         cout<<"FROM CHECK_INS_2"<<cla_2<<endl;
         Node_Var* te_2 = head_ins;
-        int t_ret2 = -2;//'\0'
+        int t_ret2 = -2;
         while(te_2 != NULL){
-            if(te_2->name == cla_2){//ATTACK
+            if(te_2->name == cla_2){
                 cout<<endl<<te_2->instantiate<<endl;
                 t_ret2 = te_2->instantiate;
                 cout<<"t_ret2 "<<t_ret2<<endl;
-            }//1
+            }
             te_2 = te_2->next;
         }
-        return t_ret2;//1
+        return t_ret2;
     }
-    int check_Ins(string cla_1, Node* h, Node_Var *head_ins){//PROBLEM
+    int check_Ins(string cla_1, Node* h, Node_Var *head_ins){
         Node* temp = h;
         int t_ret=-1;
         while(temp != NULL){
-            if(temp->conditions1 == cla_1){//PROBLEM
-                if(temp->response1 == check_Ins_2(temp->conditions1, head_ins))//1
+            if(temp->conditions1 == cla_1){
+                if(temp->response1 == check_Ins_2(temp->conditions1, head_ins))
                     t_ret = temp->response1;
             }
             temp = temp->next;
         }
         return t_ret;
     }
-    void checkForInstantiation(string clause, Node* h, Node_Var *head_ins){//ATTACK
+    void checkForInstantiation(string clause, Node* h, Node_Var *head_ins){
         LinkedList l_from_inst;
         Node_Var* temp = head_ins;
         int k_ol1, k_ol2 = 1;
         while((clause.compare(temp->name) != 0) && temp->next != NULL){
             temp = temp->next;
         }
-        if(temp->instantiate ==1 || temp->instantiate == 0){//already instantiated
+        if(temp->instantiate ==1 || temp->instantiate == 0){
             return;
         } else{//not already instantiated//looking in then clause
-            Node* found_clause = l_from_inst.searchThen(clause, h);//ATTACK
-            if(found_clause == NULL){//NOT FOUND <= search_Then returns NULL if not found. So, we create new Variable.
+            Node* found_clause = l_from_inst.searchThen(clause, h);
+            if(found_clause == NULL){
                 cout<<"\nInstantiate "<<temp->name<<" ";
                 cin>>variable_response[var_n];
                 temp->instantiate = variable_response[var_n];
                 var_n++;
             } else {
                 temp->instantiate = found_clause->result;
-                Node_Var *newNode = new Node_Var(found_clause->data, found_clause->result);//ATTACK,1//instantiating
+                Node_Var *newNode = new Node_Var(found_clause->data, found_clause->result);
                 Node_Var* temp_var = head_ins;
                 while(temp_var->next != NULL)
                     temp_var = temp_var->next;
@@ -308,7 +307,7 @@ public:
             temp = temp->next;
         }
     }
-    void search(int C1, Node* h, Node_Clause_var_List* head_clause, Node_Var *head_ins){//13
+    void search(int C1, Node* h, Node_Clause_var_List* head_clause, Node_Var *head_ins){
         Node_Clause_var_List* temp = head_clause;
 
         while(C1 != (temp->srl) && temp->next != NULL){
@@ -319,7 +318,7 @@ public:
             if(temp->clause == ""){
                 temp = temp->next;
             } else{
-                l_for_instantiate.checkForInstantiation(temp->clause, h, head_ins);//1
+                l_for_instantiate.checkForInstantiation(temp->clause, h, head_ins);
                 temp = temp->next;
             }
         }
@@ -367,7 +366,7 @@ void assign_attack_type(int rule){
     if(rule == 190)
         cout<<"MALICIOUS CODE";
 }
-void validate_R1(int R1, Node* h, Node_Var* head_ins){//40
+void validate_R1(int R1, Node* h, Node_Var* head_ins){
     LinkedList_Var ll_v;
 
     Node* temp = h, *compare_node;
@@ -410,11 +409,11 @@ void validate_R1(int R1, Node* h, Node_Var* head_ins){//40
     //process(9.0);
 }
 
-void update_VL(int R1, int C1, Node* h, Node_Clause_var_List *head_clause, Node_Var *head_ins){//40 13
+void update_VL(int R1, int C1, Node* h, Node_Clause_var_List *head_clause, Node_Var *head_ins){
     LinkedList_Clause_Var_List l_ins;
 
     l_ins.search(C1, h, head_clause, head_ins);
-    validate_R1(R1, h, head_ins);//40
+    validate_R1(R1, h, head_ins);
 }
 void rule_to_clause(int R1, Node* h, Node_Clause_var_List *head_clause, Node_Var *head_ins){
     int C1;
@@ -423,7 +422,7 @@ void rule_to_clause(int R1, Node* h, Node_Clause_var_List *head_clause, Node_Var
     cout<<"Clause Number "<<clause_number<<endl;
     update_VL(R1, clause_number, h, head_clause, head_ins);
 }
-void search_con(Node* h, string variable, Node_Clause_var_List *head_clause, Node_Var *head_ins){//attack_type
+void search_con(Node* h, string variable, Node_Clause_var_List *head_clause, Node_Var *head_ins){
     LinkedList l_s;
     int rule_number = l_s.search(h, variable);
     cout<<"Rule # "<<rule_number<<endl<<endl;
@@ -445,20 +444,16 @@ void Identify_the_attack(){
     l.define_conclusionList(2, "ATTACK", "PROBLEM", "", "", var_response_n, var_response_n, var_response_n);
     l.define_conclusionList(3, "ATTACK", "PROBLEM", "SLOW", "", var_response_y, var_response_y, var_response_n);
     l.define_conclusionList(4, "ATTACK_TYPE", "ATTACK", "SLOW", "", var_response_y, var_response_y, var_response_n);
-    //next 5 AMINA
     l.define_conclusionList(5, "ATTACK_TYPE_M", "ATTACK_TYPE", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(6, "ATTACK_TYPE_D", "ATTACK_TYPE", "UNNECESSARY RUNNING PROCESSOR", "NO RESPONSE", var_response_y, var_response_y, var_response_y);
-    //make all yes set data to malicious code
     l.define_conclusionList(7, "ATTACK_TYPE_Mal", "ATTACK_TYPE", "UNNECESSARY RUNNING PROCESSOR", "UNKNOWN FILES", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(8, "ATTACK_TYPE_Den", "ATTACK_TYPE", "SLOW", "NO RESPONSE", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(9, "ATTACK_TYPE_ID", "UNKNOWN FILES", "UNAUTHORIZED ACTIVITY", "UNKWOWN EMAILS", var_response_y, var_response_y, var_response_y);
-    //next 5 HANISH
     l.define_conclusionList(10, "ATTACK_TYPE", "ATTACK", "SLOW", "", var_response_y, var_response_y, var_response_n);
     l.define_conclusionList(11, "ATTACK_TYPE", "ATTACK", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(12, "ATTACK_TYPE", "PROBLEM", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(13, "ATTACK_TYPE", "SLOW", "UNNECESSARY RUNNING PROCESSOR", "UNKNOWN FILE", var_response_n, var_response_n, var_response_n);
     l.define_conclusionList(14, "ATTACK_TYPE", "PROBLEM", "SLOW", "NO RESPONSE", var_response_y, var_response_n, var_response_n);
-    //next 5 PRIYA
     l.define_conclusionList(15, "ATTACK_TYPE", "PROBLEM", "SLOW", "NO RESPONSE", var_response_y, var_response_n, var_response_n);
     l.define_conclusionList(16, "ATTACK_TYPE", "ATTACK", "SLOW", "", var_response_y, var_response_y, var_response_n);
     l.define_conclusionList(17, "ATTACK_TYPE", "ATTACK", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
@@ -509,21 +504,6 @@ void Identify_the_attack(){
 
     search_con(head, "ATTACK_TYPE_ID", head_clause, head_ins);
 }
-/*
-int prevention(){
-
-    return 0;
-}
-
-int Attacks_BW(){
-
-}
-
-int Prevention_FW(){
-
-}
-
-*/
 
 class QueueNode {
 public:
