@@ -80,3 +80,13 @@ Then ATTACKTYPE ID  = YES
 
 
 ![back](https://user-images.githubusercontent.com/25388169/221639239-a901d24c-7c92-4374-9985-5903e333852f.jpg)
+
+Rules - Forward
+
+'10' IF BasicAttack=true THEN Install antivirus software.
+'20' IF IdentityAttack=true THEN Use a VPN.
+'30' IF DenialOfService=true THEN Have multilevel authentication for users.
+'40' IF MaliciousCode=true THEN Don't download any files from unknown source. 
+
+
+
