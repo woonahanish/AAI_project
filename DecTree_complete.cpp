@@ -333,38 +333,36 @@ int process(double x){
 }*/
 
 void assign_attack_type(int rule){
-    if(rule == 40)
-        cout<<"MALICIOUS CODE";
+    if(rule == 30)
+        cout<<"ACTIVE ATTACK";
     if(rule == 50)
         cout<<"MALICIOUS CODE";
     if(rule == 60)
-        cout<<"DENIAL OF SERVICE";
+        cout<<"MALICIOUS CODE";
     if(rule == 70)
-        cout<<"MALICIOUS CODE";
+        cout<<"DENIAL OF SERVICE";
     if(rule == 80)
-        cout<<"DENIAL OF SERVICE";
+        cout<<"MALICIOUS CODE";
     if(rule == 90)
-        cout<<"Indentity Theft";
+        cout<<"DENIAL OF SERVICE";
     if(rule == 100)
-        cout<<"MALICIOUS CODE";
+        cout<<"Indentity Theft";
     if(rule == 110)
-        cout<<"MALICIOUS CODE";
+        cout<<"DENIAL OF SERVICE";
     if(rule == 120)
-        cout<<"DENIAL OF SERVICE";
+        cout<<"Indentity Theft";
     if(rule == 130)
-        cout<<"MALICIOUS CODE";
-    if(rule == 140)
         cout<<"DENIAL OF SERVICE";
+    if(rule == 140)
+        cout<<"Indentity Theft";
     if(rule == 150)
         cout<<"Indentity Theft";
-    if(rule == 160)
-        cout<<"MALICIOUS CODE";
     if(rule == 170)
         cout<<"MALICIOUS CODE";
-    if(rule == 180)
-        cout<<"DENIAL OF SERVICE";
     if(rule == 190)
-        cout<<"MALICIOUS CODE";
+        cout<<"Indentity Theft";
+    if(rule == 200)
+        cout<<"Basic Attack";
 }
 void validate_R1(int R1, Node* h, Node_Var* head_ins){
     LinkedList_Var ll_v;
@@ -442,23 +440,25 @@ void Identify_the_attack(){
 
     l.define_conclusionList(1, "ATTACK", "PROBLEM", "", "", var_response_y, var_response_y, var_response_y);
     l.define_conclusionList(2, "ATTACK", "PROBLEM", "", "", var_response_n, var_response_n, var_response_n);
-    l.define_conclusionList(3, "ATTACK", "PROBLEM", "SLOW", "", var_response_y, var_response_y, var_response_n);
-    l.define_conclusionList(4, "ATTACK_TYPE", "ATTACK", "SLOW", "", var_response_y, var_response_y, var_response_n);
-    l.define_conclusionList(5, "ATTACK_TYPE_M", "ATTACK_TYPE", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(6, "ATTACK_TYPE_D", "ATTACK_TYPE", "UNNECESSARY RUNNING PROCESSOR", "NO RESPONSE", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(7, "ATTACK_TYPE_Mal", "ATTACK_TYPE", "UNNECESSARY RUNNING PROCESSOR", "UNKNOWN FILES", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(8, "ATTACK_TYPE_Den", "ATTACK_TYPE", "SLOW", "NO RESPONSE", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(9, "ATTACK_TYPE_ID", "UNKNOWN FILES", "UNAUTHORIZED ACTIVITY", "UNKWOWN EMAILS", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(10, "ATTACK_TYPE", "ATTACK", "SLOW", "", var_response_y, var_response_y, var_response_n);
-    l.define_conclusionList(11, "ATTACK_TYPE", "ATTACK", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(12, "ATTACK_TYPE", "PROBLEM", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(13, "ATTACK_TYPE", "SLOW", "UNNECESSARY RUNNING PROCESSOR", "UNKNOWN FILE", var_response_n, var_response_n, var_response_n);
-    l.define_conclusionList(14, "ATTACK_TYPE", "PROBLEM", "SLOW", "NO RESPONSE", var_response_y, var_response_n, var_response_n);
-    l.define_conclusionList(15, "ATTACK_TYPE", "PROBLEM", "SLOW", "NO RESPONSE", var_response_y, var_response_n, var_response_n);
-    l.define_conclusionList(16, "ATTACK_TYPE", "ATTACK", "SLOW", "", var_response_y, var_response_y, var_response_n);
-    l.define_conclusionList(17, "ATTACK_TYPE", "ATTACK", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(18, "ATTACK_TYPE", "PROBLEM", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
-    l.define_conclusionList(19, "ATTACK_TYPE", "PROBLEM", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(3, "ATTACK_ACTIVE", "SLOW", "ATTACK", "", var_response_y, var_response_y, var_response_n);
+    l.define_conclusionList(4, "ATTACK_ACTIVE", "SLOW", "ATTACK", "", var_response_y, var_response_n, var_response_n);
+    
+    l.define_conclusionList(5, "ATTACK_TYPE", "ATTACK", "ATTACK_ACTIVE", "", var_response_y, var_response_y, var_response_n);
+    l.define_conclusionList(6, "ATTACK_TYPE_M", "ATTACK_TYPE", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(7, "ATTACK_TYPE_D", "ATTACK_TYPE", "UNNECESSARY RUNNING PROCESSOR", "NO RESPONSE", var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(8, "ATTACK_TYPE_Mal", "ATTACK_TYPE", "UNNECESSARY RUNNING PROCESSOR", "UNKNOWN FILE", var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(9, "ATTACK_TYPE_Den", "ATTACK_TYPE", "SLOW", "NO RESPONSE", var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(10, "ATTACK_TYPE_ID", "UNKNOWN FILE", "UNAUTHORIZED ACTIVITY", "UNSENT EMAILS", var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(11, "ATTACK_TYPE_DenH", "ATTACK_ACTIVE", "FLOODING REQUEST", "CRASHED SYSTEM", var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(12, "ATTACK_TYPE_IDH", "ATTACK_ACTIVE", "UNNECESSARY RUNNING PROCESSOR", "PASSWARD COMPROMISED",var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(13, "ATTACK_TYPE_DenHN", "ATTACK_ACTIVE", "FLOODING REQUEST", "CRASHED SYSTEM", var_response_y, var_response_y, var_response_n);
+    l.define_conclusionList(14, "ATTACK_TYPE_IDH", "ATTACK_ACTIVE", "PASSWARD COMPROMISED", "UNKNOWN FILE", var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(15, "ATTACK_TYPE_IDHN", "ATTACK_ACTIVE", "PASSWARD COMPROMISED", "UNKNOWN FILE", var_response_y, var_response_y, var_response_n);
+    l.define_conclusionList(16, "ATTACK_TYPE_P", "PROBLEM", "SLOW", "NO RESPONSE", var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(17, "ATTACK_TYPE_M", "ATTACK", "SLOW", "LOST FILES", var_response_y, var_response_y, var_response_y);
+    l.define_conclusionList(18, "ATTACK_TYPE_ACTIVE", "ATTACK", "SLOW", "UNNECESSARY RUNNING PROCESSOR", var_response_y, var_response_y, var_response_n);
+    l.define_conclusionList(19, "ATTACK_TYPE_ID_P", "ATTACK_TYPE", "SLOW", "PASSWARD COMPROMISED", var_response_y, var_response_n, var_response_y);
+    l.define_conclusionList(20, "ATTACK_TYPE_MAL_Y", "PROBLEM", "BUG", "CRASHED SYSTEM", var_response_y, var_response_y, var_response_y);
 
     Node* head = l.head_ret();
 
