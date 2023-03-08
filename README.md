@@ -80,8 +80,7 @@ Then ATTACKTYPE ID  = YES
 	Then ATTACK TYPE MAL Y= YES
 
 
-
-![back](https://user-images.githubusercontent.com/25388169/221639239-a901d24c-7c92-4374-9985-5903e333852f.jpg)
+![Slide1](https://user-images.githubusercontent.com/25388169/223880198-ac05145f-3f9b-4e0c-acd7-07b40e6bd96d.JPG)
 
 Rules - Forward
 
